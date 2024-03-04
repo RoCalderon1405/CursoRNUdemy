@@ -1,12 +1,24 @@
 import React from 'react';
 import {SafeAreaView} from 'react-native';
-import {CounterScreen} from './src/presentation/screens';
+import {
+  BoxObjectModelScreen,
+  CounterM3Screen,
+  CounterScreen,
+} from './src/presentation/screens';
+import {PaperProvider} from 'react-native-paper';
+
+import IonIcon from 'react-native-vector-icons/Ionicons';
 
 export const App = () => {
   return (
-    <SafeAreaView style={{flex: 1}}>
-      {/* <HelloWorldScreen name='Roberto Calderón'/> */}
-      <CounterScreen />
-    </SafeAreaView>
+    <PaperProvider
+      settings={{
+        icon: props => <IonIcon {...props} />,
+      }}>
+      <SafeAreaView style={{flex: 1}}>
+        {/* <CounterM3Screen /> */}
+        <BoxObjectModelScreen />
+      </SafeAreaView>
+    </PaperProvider>
   );
 };
