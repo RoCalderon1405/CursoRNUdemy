@@ -4,7 +4,9 @@ import {StyleSheet, Text, View} from 'react-native';
 export const BoxObjectModelScreen = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>BoxObjectScreen</Text>
+      {/* <Text style={styles.title}>BoxObjectScreen</Text> */}
+
+      <View style={styles.purpleBox}></View>
     </View>
   );
 };
@@ -15,8 +17,15 @@ const styles = StyleSheet.create({
     backgroundColor: 'red',
   },
   title: {
-    fontSize: 50,
+    fontSize: 30,
+    paddingHorizontal: 30,
+    paddingVertical: 10,
+
     borderWidth: 10,
-    padding: 5,
+  },
+  purpleBox: {
+    height: 30,
+    backgroundColor: 'purple',
+    margin: 20,
   },
 });
