@@ -6,7 +6,9 @@ export const BoxObjectModelScreen = () => {
     <View style={styles.container}>
       {/* <Text style={styles.title}>BoxObjectScreen</Text> */}
 
-      <View style={styles.purpleBox}></View>
+      <View style={styles.purpleBox}>
+        <Text>Hola</Text>
+      </View>
     </View>
   );
 };
