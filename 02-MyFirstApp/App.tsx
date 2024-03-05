@@ -7,6 +7,7 @@ import {
   DimensionScreen,
   FlexScreen,
   PositionScreen,
+  HomeworkScreen
 } from './src/presentation/screens';
 import {PaperProvider} from 'react-native-paper';
 
@@ -23,7 +24,8 @@ export const App = () => {
         {/* <BoxObjectModelScreen /> */}
         {/* <DimensionScreen /> */}
         {/* <PositionScreen /> */}
-        <FlexScreen />
+        {/* <FlexScreen /> */}
+        <HomeworkScreen />
       </SafeAreaView>
     </PaperProvider>
   );
