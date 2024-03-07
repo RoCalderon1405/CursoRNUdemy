@@ -39,6 +39,7 @@ export const styles = StyleSheet.create({
   row:{
     flexDirection:'row',
     justifyContent: 'center',
+    marginBottom: 10,
   },
 
   button: {
