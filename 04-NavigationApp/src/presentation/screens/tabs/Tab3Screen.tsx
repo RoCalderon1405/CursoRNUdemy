@@ -1,7 +1,13 @@
-import React from 'react'
+import React from 'react';
+import {View, Text} from 'react-native';
+import {HamburguerMenu} from '../../components/HamburguerMenu';
 
 export const Tab3Screen = () => {
   return (
-    <div>Tab3Screen</div>
-  )
-}
+    <View>
+      <HamburguerMenu />
+
+      <Text>Tab3</Text>
+    </View>
+  );
+};
