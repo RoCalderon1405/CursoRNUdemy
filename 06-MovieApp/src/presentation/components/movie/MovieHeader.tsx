@@ -18,8 +18,6 @@ export const MovieHeader = ({movie}: Props) => {
   const {height: screenHeight} = useWindowDimensions();
   const navigate = useNavigation();
 
-  console.log(movie);
-
   return (
     <>
       <View style={{...styles.imageContainer, height: screenHeight * 0.7}}>
