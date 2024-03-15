@@ -11,7 +11,7 @@ export const Card = ({style, children}: Props) => {
     <View
       style={[
         {
-          backgroundColor: '#dadada',
+          backgroundColor: '#ffffff',
           borderRadius: 10,
           padding: 10,
         },

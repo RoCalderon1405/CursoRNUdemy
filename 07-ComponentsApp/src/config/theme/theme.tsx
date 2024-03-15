@@ -12,7 +12,7 @@ export const colors: ThemeColors = {
   primary: '#5856D6',
   text: 'black',
 
-  background: '#F3F2F7',
+  background: '#f7f7f7',
   cardBackground: 'white',
   buttonTextColor: 'white',
 };
@@ -26,6 +26,16 @@ export const globalStyles = StyleSheet.create({
   subTitle: {
     fontSize: 20,
     fontWeight: 'bold',
+    color: colors.text,
+  },
+
+  input: {
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
+    borderColor: 'rgba(0,0,0,0.3)',
+    borderRadius: 10,
     color: colors.text,
   },
 
@@ -45,7 +55,7 @@ export const globalStyles = StyleSheet.create({
     alignItems: 'center',
   },
   btnPrimaryText: {
-    color: colors.text,
+    color: colors.buttonTextColor,
     fontSize: 16,
   },
 });

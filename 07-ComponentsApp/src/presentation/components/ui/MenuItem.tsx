@@ -48,7 +48,7 @@ export const MenuItem = ({name, icon, component, isFirst, isLast}: Props) => {
             style={{marginLeft: 'auto', color: colors.primary}}
           />
         </View>
-      {!isLast ? <Separator/> : ''}
+      {!isLast ? <Separator isMenu/> : null}
       </Pressable>
     </>
   );
