@@ -1,4 +1,4 @@
-import prompt from 'react-native-prompt-android';
+import prompt from 'react-native-prompt-android'
 
 interface Options {
   title?: string;
