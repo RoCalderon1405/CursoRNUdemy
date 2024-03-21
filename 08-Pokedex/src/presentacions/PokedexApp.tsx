@@ -1,11 +1,12 @@
 import 'react-native-gesture-handler';
-import {PropsWithChildren} from 'react';
-import {NavigationContainer} from '@react-navigation/native';
 
-export default function PokedexApp({children}: PropsWithChildren) {
+import {NavigationContainer} from '@react-navigation/native';
+import {StackNavigator} from './navigator/StackNavigator';
+
+export default function PokedexApp() {
   return (
     <NavigationContainer>
-      {children}
+      <StackNavigator />
     </NavigationContainer>
   );
 }
