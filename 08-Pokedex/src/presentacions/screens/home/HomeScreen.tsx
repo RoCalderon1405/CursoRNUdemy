@@ -1,4 +1,8 @@
-import {useQuery} from '@tanstack/react-query';
+import {
+  useInfiniteQuery,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
 import React from 'react';
 import {FlatList, StyleSheet, View} from 'react-native';
 import {getPokemons} from '../../../actions/pokemons';
@@ -8,10 +12,27 @@ import {globalTheme} from '../../../config/theme/global-theme';
 import {PokemonCard} from '../../components/pokemons/PokemonCard';
 
 export const HomeScreen = () => {
-  const {isLoading, data: pokemons = []} = useQuery({
-    queryKey: ['pokemons'],
-    queryFn: () => getPokemons(50),
+  const queryClient = useQueryClient();
+
+  //Esta es la forma tradicional de una petición http
+  // const {isLoading, data: pokemons = []} = useQuery({
+  //   queryKey: ['pokemons'],
+  //   queryFn: () => getPokemons(0),
+  //   staleTime: 100 * 60 * 60, //60 minutes
+  // });
+  const {isLoading, data, fetchNextPage} = useInfiniteQuery({
+    queryKey: ['pokemons', 'infinite'],
+    initialPageParam: 0,
     staleTime: 100 * 60 * 60, //60 minutes
+    queryFn: async params => {
+      const pokemons = await getPokemons(params.pageParam);
+      pokemons.forEach(pokemon => {
+        queryClient.setQueryData(['pokemon', pokemon.id], pokemon);
+      });
+
+      return pokemons;
+    },
+    getNextPageParam: (lastPage, pages) => pages.length,
   });
 
   return (
@@ -19,12 +40,14 @@ export const HomeScreen = () => {
       <PokebalBg style={styles.imgPosition} />
 
       <FlatList
-        data={pokemons}
+        data={data?.pages.flat() ?? []}
         keyExtractor={(pokemon, index) => `${pokemon.id}-${index}`}
         showsVerticalScrollIndicator={false}
         numColumns={2}
         ListHeaderComponent={() => <Text variant="displayMedium">Pokedex</Text>}
         renderItem={({item}) => <PokemonCard pokemon={item} />}
+        onEndReachedThreshold={0.6}
+        onEndReached={() => fetchNextPage()}
       />
     </View>
   );

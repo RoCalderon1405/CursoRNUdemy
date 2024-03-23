@@ -8,11 +8,10 @@ import {PokemonMapper} from '../../infrastructure/mappers/pokemon.mapper';
 
 export const getPokemons = async (
   page: number,
-  limit: number = 50,
+  limit: number = 20,
 ): Promise<Pokemon[]> => {
   try {
     const url = `/pokemon?offset=${page * 10}&limit=${limit}`;
-
     const {data} = await pokeApi.get<PokeAPIPaginatedResponse>(url);
 
     const pokemonPromises = data.results.map(info => {
@@ -20,13 +19,11 @@ export const getPokemons = async (
     });
 
     const pokeApiPokemons = await Promise.all(pokemonPromises);
-    const pokemons = pokeApiPokemons.map(response =>
+    const pokemonsPromises = pokeApiPokemons.map(response =>
       PokemonMapper.pokemonApiPokemonToEntity(response.data),
     );
 
-    console.log(pokemons);
-
-    return pokemons;
+    return await Promise.all(pokemonsPromises);
   } catch (error) {
     throw new Error('Failed to getPokemon');
   }
