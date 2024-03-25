@@ -7,12 +7,17 @@ import React from 'react';
 import {FlatList, StyleSheet, View} from 'react-native';
 import {getPokemons} from '../../../actions/pokemons';
 import {PokebalBg} from '../../components/ui/PokeballBg';
-import {Text} from 'react-native-paper';
+import {FAB, Text, useTheme} from 'react-native-paper';
 import {globalTheme} from '../../../config/theme/global-theme';
 import {PokemonCard} from '../../components/pokemons/PokemonCard';
+import {StackScreenProps} from '@react-navigation/stack';
+import {RootStackParams} from '../../navigator/StackNavigator';
 
-export const HomeScreen = () => {
+interface Props extends StackScreenProps<RootStackParams, 'HomeScreen'> {}
+
+export const HomeScreen = ({navigation}: Props) => {
   const queryClient = useQueryClient();
+  const theme = useTheme();
 
   //Esta es la forma tradicional de una petición http
   // const {isLoading, data: pokemons = []} = useQuery({
@@ -20,6 +25,7 @@ export const HomeScreen = () => {
   //   queryFn: () => getPokemons(0),
   //   staleTime: 100 * 60 * 60, //60 minutes
   // });
+
   const {isLoading, data, fetchNextPage} = useInfiniteQuery({
     queryKey: ['pokemons', 'infinite'],
     initialPageParam: 0,
@@ -48,6 +54,19 @@ export const HomeScreen = () => {
         renderItem={({item}) => <PokemonCard pokemon={item} />}
         onEndReachedThreshold={0.6}
         onEndReached={() => fetchNextPage()}
+      />
+
+      <FAB
+        label="Buscar"
+        style={[
+          globalTheme.fab,
+          {
+            backgroundColor: theme.colors.primary,
+          },
+        ]}
+        mode="elevated"
+        color={theme.dark ? 'black' : 'white'}
+        onPress={() => navigation.push('SearchScreen')}
       />
     </View>
   );
