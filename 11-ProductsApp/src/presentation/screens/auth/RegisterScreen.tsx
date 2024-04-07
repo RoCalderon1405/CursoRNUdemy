@@ -1,17 +1,16 @@
-import {Button, Input, Layout, Text} from '@ui-kitten/components';
+import {Button, Input, Layout, Spinner, Text} from '@ui-kitten/components';
 import React, {useState} from 'react';
 import {Alert, useWindowDimensions} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import {MyIcon} from '../../components/ui/MyIcon';
-import {StackNavigationProp, StackScreenProps} from '@react-navigation/stack';
+import {StackScreenProps} from '@react-navigation/stack';
 import {RootStackParams} from '../../navigation/NavigationStack';
-import {useUserStore} from '../../store/user/useUserStore';
-import {useNavigation} from '@react-navigation/native';
+import { useAuthStore } from '../../store/auth/useAuthStore';
 
 interface Props extends StackScreenProps<RootStackParams, 'RegisterScreen'> {}
 
 export const RegisterScreen = ({navigation}: Props) => {
-  const {create} = useUserStore();
+  const {register} = useAuthStore();
   const [form, setForm] = useState({
     email: '',
     password: '',
@@ -28,7 +27,8 @@ export const RegisterScreen = ({navigation}: Props) => {
     )
       return;
 
-    const wasSuccessfull = await create(
+    setIsPosting(true);
+    const wasSuccessfull = await register(
       form.email,
       form.password,
       form.fullName,
@@ -41,8 +41,8 @@ export const RegisterScreen = ({navigation}: Props) => {
       });
       return;
     }
+    setIsPosting(false);
     Alert.alert('Error', 'Problema Creando usuario');
-
   };
 
   return (
@@ -86,14 +86,21 @@ export const RegisterScreen = ({navigation}: Props) => {
 
           <Layout style={{height: 20}} />
 
-          <Text>{JSON.stringify(form, null, 2)}</Text>
+          {/* <Text>{JSON.stringify(form, null, 2)}</Text> */}
 
           <Layout>
-            <Button
-              accessoryRight={<MyIcon name="arrow-forward-outline" white />}
-              onPress={createUser}>
-              Crear
-            </Button>
+            {!isPosting ? (
+              <Button
+                disabled={isPosting}
+                accessoryRight={<MyIcon name="arrow-forward-outline" white />}
+                onPress={createUser}>
+                Crear
+              </Button>
+            ) : (
+              <Layout style={{alignItems: 'center'}}>
+                <Spinner status="primary" size="medium" />
+              </Layout>
+            )}
           </Layout>
 
           <Layout style={{height: 50}} />

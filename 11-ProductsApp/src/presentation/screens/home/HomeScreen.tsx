@@ -3,7 +3,6 @@ import {AuthState, useAuthStore} from '../../store/auth/useAuthStore';
 
 export const HomeScreen = () => {
   const {user,token}: AuthState = useAuthStore();
-  console.log({user: user, token: token});
   const {logout} = useAuthStore();
   return (
     <Layout style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>

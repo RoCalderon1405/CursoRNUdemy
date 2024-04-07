@@ -17,7 +17,6 @@ const tesloApi = axios.create({
   }
 });
 
-
 tesloApi.interceptors.request.use(
   async (config) => {
 

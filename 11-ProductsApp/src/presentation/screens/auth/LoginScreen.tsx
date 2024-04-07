@@ -58,7 +58,6 @@ export const LoginScreen = ({navigation}: Props) => {
             onChangeText={password => setForm({...form, password})}
           />
 
-          {/* <Text>{JSON.stringify(form, null, 2)}</Text> */}
           <Layout style={{height: 20}} />
 
           <Layout>

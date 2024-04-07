@@ -1,4 +1,5 @@
-import {tesloApi} from '../../config/api/tesloApi';
+import { AxiosError } from 'axios';
+import {API_URL, tesloApi} from '../../config/api/tesloApi';
 import type {User} from '../../domain/entities/user';
 import type {AuthLoginResponse} from '../../infraestructure/interfaces/auth.responses';
 
@@ -31,8 +32,9 @@ export const userCreate = async (
       fullName,
     });
     return returnUserToken(data);
-  } catch (error) {
-    console.log(error);
+  } catch ( error: any) {
+    const err = error as AxiosError
+    console.log(err.response?.data);
     return null;
   }
 };
