@@ -13,8 +13,8 @@ export const LoginScreen = ({navigation}: Props) => {
   const {login} = useAuthStore();
   const [isPosting, setIsPosting] = useState(false);
   const [form, setForm] = useState({
-    email: '',
-    password: '',
+    email: 'test1@google.com',
+    password: 'Abc123',
   });
   const {height} = useWindowDimensions();
 

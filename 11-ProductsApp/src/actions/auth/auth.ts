@@ -1,4 +1,4 @@
-import { AxiosError } from 'axios';
+import {AxiosError} from 'axios';
 import {API_URL, tesloApi} from '../../config/api/tesloApi';
 import type {User} from '../../domain/entities/user';
 import type {AuthLoginResponse} from '../../infraestructure/interfaces/auth.responses';
@@ -27,8 +27,9 @@ export const authLogin = async (email: string, password: string) => {
       password,
     });
     return returnUserToken(data);
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    const err = error as AxiosError;
+    console.log({err});
     return null;
   }
 };
@@ -39,7 +40,7 @@ export const authCheckStatus = async () => {
     console.log(data);
     return returnUserToken(data);
   } catch (error: any) {
-    const err = error as AxiosError
+    const err = error as AxiosError;
     console.log({authError: err.response?.data});
     return null;
   }
