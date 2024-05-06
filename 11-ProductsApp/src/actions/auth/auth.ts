@@ -37,7 +37,6 @@ export const authLogin = async (email: string, password: string) => {
 export const authCheckStatus = async () => {
   try {
     const {data} = await tesloApi.get<AuthLoginResponse>('/auth/check-status');
-    console.log(data);
     return returnUserToken(data);
   } catch (error: any) {
     const err = error as AxiosError;

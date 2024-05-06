@@ -6,13 +6,13 @@ import {
   TopNavigation,
   TopNavigationAction,
 } from '@ui-kitten/components';
-import React, {JSXElementConstructor, ReactElement} from 'react';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {MyIcon} from '../components/ui/MyIcon';
+import {TouchableWebElement} from '@ui-kitten/components/devsupport';
 
 interface Props {
-  title: string;
-  subTitle: string;
+  title?: string;
+  subTitle?: string;
 
   rightAction?: () => void;
   rightActionIcon?: string;
@@ -30,19 +30,20 @@ export const MainLayout = ({
   const {top} = useSafeAreaInsets();
   const {canGoBack, goBack} = useNavigation();
 
-  const renderBackAction = () => {
+  const renderBackAction = () => (
     <TopNavigationAction
       icon={<MyIcon name="arrow-back-outline" />}
       onPress={goBack}
-    />;
-  };
+    />
+  );
+
   return (
     <Layout style={{paddingTop: top}}>
       <TopNavigation
         title={title}
         subtitle={subTitle}
         alignment="center"
-        // accessoryLeft={renderBackAction}
+        accessoryLeft={canGoBack() ? renderBackAction :  undefined}
       />
       <Divider />
       <Layout style={{height: '100%'}}>{children}</Layout>

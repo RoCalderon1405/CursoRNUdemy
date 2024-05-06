@@ -1,7 +1,7 @@
 import {AxiosError} from 'axios';
-import {tesloApi} from '../../../config/api/tesloApi';
-import {TesloProduct} from '../../../infraestructure/interfaces/teslo-products.response';
-import {ProductMapper} from '../../../infraestructure/mappers/product.mapper';
+import {tesloApi} from '../../config/api/tesloApi';
+import {TesloProduct} from '../../infraestructure/interfaces/teslo-products.response';
+import {ProductMapper} from '../../infraestructure/mappers/product.mapper';
 
 export const getProductsByPage = async (page: number, limit: number = 20) => {
   console.log({page, limit});
@@ -12,7 +12,7 @@ export const getProductsByPage = async (page: number, limit: number = 20) => {
     );
 
     const products = data.map(ProductMapper.tesloProductToEntity);
-    console.log(products[0]);
+    // console.log(products[0]);
 
     return products;
   } catch (error: any) {

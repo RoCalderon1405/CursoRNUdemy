@@ -1,11 +1,11 @@
-
-import React from 'react'
-import { Text, View } from 'react-native'
+import React from 'react';
+import {Text, View} from 'react-native';
+import {MainLayout} from '../../layouts/MainLayout';
 
 export const ProductScreen = () => {
   return (
-    <View>
-        <Text>ProductScreen</Text>
-    </View>
-  )
-}
+    <MainLayout title="Product">
+      <Text>hola</Text>
+    </MainLayout>
+  );
+};
