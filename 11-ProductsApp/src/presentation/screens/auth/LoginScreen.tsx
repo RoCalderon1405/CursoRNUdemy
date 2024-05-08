@@ -1,4 +1,4 @@
-import {Button, Input, Layout, Text} from '@ui-kitten/components';
+import {Button, Input, Layout, Spinner, Text} from '@ui-kitten/components';
 import React, {useState} from 'react';
 import {Alert, useWindowDimensions} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
@@ -16,15 +16,18 @@ export const LoginScreen = ({navigation}: Props) => {
     email: 'test1@google.com',
     password: 'Abc123',
   });
+  const [isLogin, setIsLogin] = useState(false)
   const {height} = useWindowDimensions();
 
   const onLogin = async () => {
+    setIsLogin(true)
     if (form.email.length === 0 || form.password.length === 0) return;
-
+    console.log(`login ${form.email}`)
     setIsPosting(true);
     const wasSuccessfull = await login(form.email, form.password);
     setIsPosting(false);
     if (wasSuccessfull) return;
+    setIsLogin(false)
 
     Alert.alert('Error', 'Usuario o contraseña incorrectos');
   };
@@ -65,7 +68,9 @@ export const LoginScreen = ({navigation}: Props) => {
               disabled={isPosting}
               accessoryRight={<MyIcon name="arrow-forward-outline" white />}
               onPress={onLogin}>
-              Ingresar
+              {!isLogin ? 'Ingresa' : <Spinner size='large'/>
+
+}
             </Button>
           </Layout>
 
