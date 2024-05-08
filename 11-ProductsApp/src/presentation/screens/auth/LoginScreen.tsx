@@ -16,18 +16,18 @@ export const LoginScreen = ({navigation}: Props) => {
     email: 'test1@google.com',
     password: 'Abc123',
   });
-  const [isLogin, setIsLogin] = useState(false)
+  const [isLogin, setIsLogin] = useState(false);
   const {height} = useWindowDimensions();
 
   const onLogin = async () => {
-    setIsLogin(true)
+    setIsLogin(true);
     if (form.email.length === 0 || form.password.length === 0) return;
-    console.log(`login ${form.email}`)
+    console.log(`login ${form.email}`);
     setIsPosting(true);
     const wasSuccessfull = await login(form.email, form.password);
     setIsPosting(false);
     if (wasSuccessfull) return;
-    setIsLogin(false)
+    setIsLogin(false);
 
     Alert.alert('Error', 'Usuario o contraseña incorrectos');
   };
@@ -63,15 +63,23 @@ export const LoginScreen = ({navigation}: Props) => {
 
           <Layout style={{height: 20}} />
 
-          <Layout>
-            <Button
-              disabled={isPosting}
-              accessoryRight={<MyIcon name="arrow-forward-outline" white />}
-              onPress={onLogin}>
-              {!isLogin ? 'Ingresa' : <Spinner size='large'/>
-
-}
-            </Button>
+          <Layout
+            style={{
+              width: '100%',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            {!isLogin ? (
+              <Button
+                style={{width: '100%'}}
+                disabled={isPosting}
+                accessoryRight={<MyIcon name="arrow-forward-outline" white />}
+                onPress={onLogin}>
+                Ingresa
+              </Button>
+            ) : (
+              <Spinner size="large" />
+            )}
           </Layout>
 
           <Layout style={{height: 50}} />

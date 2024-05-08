@@ -7,9 +7,16 @@ export interface Product {
     slug:        string;
     stock:       number;
     sizes:       Size[];
-    gender:      string;
+    gender:      Gender[];
     tags:        Tag[];
     images:      string[];
+}
+
+export enum Gender {
+    Kid = 'Kid',
+    Men = 'Men',
+    Women = 'Women',
+    Unisex = 'Unisex',
 }
 
 export enum Size {

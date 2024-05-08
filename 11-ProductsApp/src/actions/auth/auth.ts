@@ -26,6 +26,7 @@ export const authLogin = async (email: string, password: string) => {
       email,
       password,
     });
+    console.log(data.fullName);
     return returnUserToken(data);
   } catch (error: any) {
     const err = error as AxiosError;

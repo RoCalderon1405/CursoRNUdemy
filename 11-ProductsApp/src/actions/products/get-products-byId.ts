@@ -5,7 +5,7 @@ import {ProductMapper} from '../../infraestructure/mappers/product.mapper';
 
 export const getProductById = async (id: string): Promise<Product> => {
   try {
-    const {data} = await tesloApi.get<TesloProduct>(`/product/${id}`);
+    const {data} = await tesloApi.get<TesloProduct>(`/products/${id}`);
 
     return ProductMapper.tesloProductToEntity(data);
   } catch (error) {
