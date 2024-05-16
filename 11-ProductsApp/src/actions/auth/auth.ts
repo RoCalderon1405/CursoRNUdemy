@@ -28,9 +28,10 @@ export const authLogin = async (email: string, password: string) => {
     });
     console.log(data.fullName);
     return returnUserToken(data);
-  } catch (error: any) {
+  } catch (error) {
     const err = error as AxiosError;
-    console.log({err});
+    console.log({errLogin: err.response?.data});
+
     return null;
   }
 };
