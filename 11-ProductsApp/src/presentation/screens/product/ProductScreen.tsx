@@ -14,12 +14,9 @@ import {
 import {useRef} from 'react';
 import {FlatList, ScrollView} from 'react-native-gesture-handler';
 import {FadeInImage} from '../../components/ui/FadeInImage';
-import {Gender, Size} from '../../../domain/entities/product';
 import {MyIcon} from '../../components/ui/MyIcon';
 import {Formik} from 'formik';
-
-const sizes: Size[] = [Size.Xs, Size.S, Size.M, Size.L, Size.Xl, Size.Xxl];
-const genders: Gender[] = [Gender.Kid, Gender.Men, Gender.Unisex, Gender.Women];
+import {genders, sizes} from '../../../config/constants/constants';
 
 interface Props extends StackScreenProps<RootStackParams, 'ProductScreen'> {}
 
@@ -112,7 +109,7 @@ export const ProductScreen = ({route}: Props) => {
                   key={gender}
                   style={{
                     flex: 1,
-                    backgroundColor: values.gender.startsWith(gender)
+                    backgroundColor: values.gender.includes(gender)
                       ? theme['color-primary-200']
                       : undefined,
                   }}>
@@ -127,11 +124,18 @@ export const ProductScreen = ({route}: Props) => {
               appearance="outline">
               {sizes.map(size => (
                 <Button
-                  onPress={() => setFieldValue('gender', size)}
+                  onPress={() =>
+                    setFieldValue(
+                      'sizes',
+                      values.sizes.includes(size)
+                        ? values.sizes.filter(s => s !== size)
+                        : [...values.sizes, size],
+                    )
+                  }
                   key={size}
                   style={{
                     flex: 1,
-                    backgroundColor: true
+                    backgroundColor: values.sizes.includes(size)
                       ? theme['color-primary-200']
                       : undefined,
                   }}>
