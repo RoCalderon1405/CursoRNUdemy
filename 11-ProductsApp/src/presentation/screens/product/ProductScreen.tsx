@@ -1,5 +1,5 @@
 import {MainLayout} from '../../layouts/MainLayout';
-import {useQuery} from '@tanstack/react-query';
+import {useMutation, useQuery} from '@tanstack/react-query';
 import {getProductById} from '../../../actions/products/get-products-byId';
 import {StackScreenProps} from '@react-navigation/stack';
 import {RootStackParams} from '../../navigation/NavigationStack';
@@ -17,6 +17,8 @@ import {FadeInImage} from '../../components/ui/FadeInImage';
 import {MyIcon} from '../../components/ui/MyIcon';
 import {Formik} from 'formik';
 import {genders, sizes} from '../../../config/constants/constants';
+import {Product} from '../../../domain/entities/product';
+import {updateCreateProduct} from '../../../actions/products/update-create-product';
 
 interface Props extends StackScreenProps<RootStackParams, 'ProductScreen'> {}
 
@@ -28,6 +30,15 @@ export const ProductScreen = ({route}: Props) => {
   const {data: product} = useQuery({
     queryKey: ['product', productIdRef],
     queryFn: () => getProductById(productIdRef.current),
+  });
+
+  const mutation = useMutation({
+    mutationFn: (data: Product) =>
+      updateCreateProduct({...data, id: productIdRef.current}),
+    onSuccess(data, variables, context) {
+      console.log('Success');
+      console.log({data});
+    },
   });
 
   if (product === undefined) {
@@ -149,7 +160,7 @@ export const ProductScreen = ({route}: Props) => {
             <Button
               accessoryLeft={<MyIcon name="save-outline" white />}
               style={{margin: 15}}
-              onPress={() => console.log('Guardar')}>
+              onPress={() => handleSubmit}>
               Guardar
             </Button>
 
